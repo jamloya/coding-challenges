@@ -1,0 +1,87 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int even(long long int a[],int count,int k,long long int n)
+{
+				long int temp,temp1;
+				temp=n/k;
+				temp--;
+				temp1=n-temp;
+				a[count]=temp;
+				count++;
+				a[count]=temp1;
+				return count;
+				}
+int odd(long long int a[],int count,int k,long long int n)
+{
+	long int temp,temp1;
+	temp=n/k;
+	
+	temp1=n-temp;
+	a[count]=temp;
+	count++;
+	a[count]=temp1;
+	return count;
+}
+int main()
+{   const unsigned int M = 1000000007; 
+    long long int n,k,t;
+    cin>>t;
+    while(t--)
+	{
+		cin>>n>>k;
+		long long int a[k],count=0;
+		if(n%2==0)
+		{ 
+				count=even(a,count,k,n);
+				while(k>count+1)
+				{
+					if(a[count]%2==0 )
+					{
+						count=even(a,count,k,a[count]);
+					}
+					else
+					{
+						count=odd(a,count,k,a[count]);
+					}
+					
+            }
+			
+		}
+		else{
+			
+				count=odd(a,count,k,n);
+				
+				while(k>count+1)
+				{ 
+					if(a[count]%2==0 )
+					{ int jk=a[count];
+						count=even(a,count,k,jk);
+						
+					}
+					else
+					{   
+						count=odd(a,count,k,a[count]);
+						cout<<a[count];
+					}
+				}
+				
+		
+		}
+		long long 	int sum=1;
+		sort(a,a+count);
+		if(a[0]==1 || a[0]==0)
+		{
+		cout<<"-1"<<endl;}
+		else{
+			for(int i=0;i<k;i++)
+			{
+				sum*=((a[i]*a[i])-a[i]);
+			}
+			cout<<sum%M<<endl;
+		}
+		
+		
+	}
+}
+		
